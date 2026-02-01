@@ -4,40 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sync Up | טכנולוגיה שמניעה עסקים</title>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;400;700&family=Heebo:wght@800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0a192f; /* כחול עמוק */
-            --text-color: #ffffff;
-            --accent-teal: #2cabb1; /* הטורקיז מהלוגו */
-            --accent-gold: #d4af37; /* הזהב מהלוגו */
+            --bg: #020c1b;
+            --navy: #0a192f;
+            --light-navy: #112240;
+            --teal: #2cabb1;
+            --gold: #d4af37;
+            --text: #e6f1ff;
+            --slate: #8892b0;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            margin: 0;
-            padding: 0;
             font-family: 'Assistant', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
+        /* רקע דינמי עדין */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(44, 171, 177, 0.05) 0%, transparent 40%),
+                        radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 40%);
+            z-index: -1;
+        }
+
         header {
-            padding: 20px 50px;
+            height: 80px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(10, 25, 47, 0.9);
+            padding: 0 10%;
+            background: rgba(2, 12, 27, 0.8);
+            backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
+            border-bottom: 1px solid rgba(44, 171, 177, 0.1);
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--accent-teal);
+            font-family: 'Heebo', sans-serif;
+            font-size: 1.8rem;
+            color: var(--teal);
+            letter-spacing: 1px;
         }
 
         .hero {
@@ -48,80 +66,133 @@
             align-items: center;
             text-align: center;
             padding: 0 20px;
-            background: radial-gradient(circle, #112240 0%, #0a192f 100%);
         }
 
         .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 10px;
-            color: var(--text-color);
+            font-family: 'Heebo', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 20px;
         }
 
         .hero h1 span {
-            color: var(--accent-teal);
+            display: block;
+            color: var(--teal);
+            font-size: 0.9em;
         }
 
         .hero p {
-            font-size: 1.5rem;
-            max-width: 700px;
-            color: #8892b0;
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            color: var(--slate);
+            max-width: 800px;
+            margin-bottom: 40px;
         }
 
-        .cta-button {
-            margin-top: 30px;
-            padding: 15px 40px;
-            background-color: transparent;
-            border: 2px solid var(--accent-gold);
-            color: var(--accent-gold);
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
+        .btn {
+            padding: 18px 35px;
+            border: 1px solid var(--gold);
+            color: var(--gold);
             text-decoration: none;
-            border-radius: 5px;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background: rgba(212, 175, 55, 0.05);
+            font-size: 1.1rem;
         }
 
-        .cta-button:hover {
-            background-color: var(--accent-gold);
-            color: var(--bg-color);
+        .btn:hover {
+            background: var(--gold);
+            color: var(--bg);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+            transform: translateY(-3px);
         }
 
-        .services {
-            padding: 100px 50px;
+        .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
+            gap: 25px;
+            padding: 100px 10%;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
         .card {
-            background: #112240;
+            background: var(--light-navy);
             padding: 40px;
-            border-radius: 10px;
-            border-bottom: 4px solid var(--accent-teal);
-            transition: transform 0.3s;
+            border-radius: 8px;
+            border: 1px solid rgba(44, 171, 177, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .card:hover {
             transform: translateY(-10px);
+            border-color: var(--teal);
         }
 
         .card h3 {
-            color: var(--accent-gold);
+            color: var(--text);
+            font-size: 1.5rem;
             margin-bottom: 15px;
         }
 
-        footer {
-            text-align: center;
-            padding: 50px;
-            border-top: 1px solid #233554;
-            color: #8892b0;
+        .card p {
+            color: var(--slate);
+            font-size: 1rem;
         }
 
+        .card::after {
+            content: "→";
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: var(--teal);
+            font-size: 1.5rem;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .card:hover::after {
+            opacity: 1;
+        }
+
+        .tagline {
+            color: var(--teal);
+            font-family: monospace;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            border-top: 1px solid rgba(44, 171, 177, 0.1);
+            color: var(--slate);
+        }
+
+        /* וואטסאפ צף */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: #25d366;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            z-index: 1001;
+            transition: 0.3s;
+        }
+
+        .whatsapp-float:hover { transform: scale(1.1); }
+
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .hero p { font-size: 1.1rem; }
+            header { padding: 0 5%; }
+            .grid { padding: 50px 5%; }
         }
     </style>
 </head>
@@ -129,32 +200,44 @@
 
     <header>
         <div class="logo">Sync Up</div>
+        <div style="color: var(--gold); font-weight: bold;">הטכנולוגיה בשירות החזון</div>
     </header>
 
     <section class="hero">
-        <h1>יש לכם רעיון? <br>אנחנו נהפוך אותו ל<span>טכנולוגיה</span></h1>
-        <p>פיתוח פתרונות טכנולוגיים מתקדמים, אוטומציות חכמות וארכיטקטורת מערכות שמניעות את העסק שלכם קדימה.</p>
-        <a href="https://wa.me/YOUR_NUMBER" class="cta-button">בואו נדבר טכנולוגיה</a>
+        <span class="tagline">Welcome to the future of your business</span>
+        <h1>יש לכם רעיון?<br><span>אנחנו נהפוך אותו לטכנולוגיה</span></h1>
+        <p>Sync Up מפתחת ומיישמת פתרונות טכנולוגיים מתקדמים, מארכיטקטורת מערכות מורכבות ועד אוטומציות חכמות. אנחנו כאן כדי להניע את העסק שלכם קדימה.</p>
+        <a href="#contact" class="btn">בואו נבנה משהו גדול</a>
     </section>
 
-    <section class="services">
+    <div class="grid">
         <div class="card">
-            <h3>פיתוח בהתאמה אישית</h3>
-            <p>משלב האפיון ועד הקוד האחרון. אנחנו בונים עבורכם פתרונות טכנולוגיים Tailor-made לכל צורך עסקי.</p>
+            <h3>פיתוח Custom</h3>
+            <p>אנחנו לא מוגבלים לפלטפורמות. כתיבת קוד ופיתוח פתרונות טכנולוגיים מאפס, מותאמים אישית לצרכים המדויקים שלכם.</p>
         </div>
         <div class="card">
-            <h3>אוטומציה ואינטגרציה</h3>
-            <p>חיבור מושלם בין כל מערכות העסק. אנחנו יוצרים סינכרון מלא שחוסך זמן, מונע טעויות ומייעל תהליכים.</p>
+            <h3>סנכרון ואוטומציה</h3>
+            <p>חיבור בין מערכות, ייעול תהליכי עבודה וביטול פעולות ידניות. אנחנו גורמים למערכות שלכם לדבר זו עם זו.</p>
         </div>
         <div class="card">
-            <h3>מערכות תקשורת חכמות</h3>
-            <p>בוטים, מערכות ניתוב מתקדמות וממשקי קשר מבוססי טכנולוגיה שמעניקים לכם יתרון תחרותי אמיתי.</p>
+            <h3>תקשורת חכמה</h3>
+            <p>בניית בוטים מתקדמים, מערכות IVR חכמות וממשקי לקוח שמייצרים חוויה דיגיטלית חלקה ומקצועית.</p>
         </div>
+    </div>
+
+    <section style="text-align: center; padding: 100px 20px;" id="contact">
+        <h2 style="font-size: 2.5rem; margin-bottom: 20px;">מוכנים לסנכרן את העסק?</h2>
+        <p style="color: var(--slate); margin-bottom: 40px;">האתגר הטכנולוגי הבא שלכם מחכה לביצוע שלנו.</p>
+        <a href="https://wa.me/YOUR_PHONE" class="btn" style="background: var(--gold); color: var(--bg);">צרו קשר עכשיו</a>
     </section>
 
     <footer>
         <p>&copy; 2024 Sync Up | טכנולוגיה שמניעה עסקים</p>
     </footer>
+
+    <a href="https://wa.me/YOUR_PHONE" class="whatsapp-float">
+        <svg width="35" height="35" fill="white" viewBox="0 0 24 24"><path d="M12.031 6.172c-2.32 0-4.519.903-6.16 2.544-1.64 1.64-2.542 3.841-2.542 6.162 0 1.84.548 3.53 1.511 4.999L3.487 24l4.447-1.353c1.326.815 2.85 1.243 4.417 1.243 4.802 0 8.71-3.908 8.71-8.71s-3.908-8.71-8.71-8.71zm0 15.949c-1.465 0-2.833-.429-4.004-1.239l-.286-.195-2.618.796.811-2.553-.213-.339c-.886-1.413-1.355-3.05-1.355-4.739 0-4.01 3.264-7.275 7.275-7.275s7.275 3.265 7.275 7.275-3.265 7.275-7.275 7.275zm4.034-5.542c-.221-.11-.1.305-.915-.052-.15-.066-.889-.367-1.631-.738-.742-.371-.85-.465-.958-.559-.108-.094-.216-.188-.324-.282-.108-.094-.013-.216.081-.31s.377-.444.565-.664c.188-.22.251-.314.377-.52.126-.206.063-.385-.031-.574s-.85-2.046-1.164-2.805c-.314-.759-.628-.655-.85-.655h-.723c-.251 0-.659.094-.973.438s-1.226 1.188-1.226 2.893 1.226 3.344 1.383 3.564c.157.22 2.41 3.673 5.839 5.151.815.351 1.451.56 1.948.717.818.259 1.563.222 2.152.134.656-.098 2.016-.823 2.3-1.62.284-.797.284-1.48.199-1.62-.086-.14-.309-.221-.53-.331z"/></svg>
+    </a>
 
 </body>
 </html>
