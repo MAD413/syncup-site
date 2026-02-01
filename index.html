@@ -3,57 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sync Up | Technology Solutions</title>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;700&family=Heebo:wght@100;400;900&display=swap" rel="stylesheet">
+    <title>Sync Up | טכנולוגיה שמניעה עסקים</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Heebo:wght@100;400;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
         :root {
-            --bg: #050505;
-            --accent: #2cabb1; /* הטורקיז מהלוגו */
-            --gold: #d4af37; /* הזהב מהלוגו */
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.1);
+            --primary: #0a192f; /* כחול עמוק */
+            --accent: #2cabb1;  /* הטורקיז שלכם */
+            --gold: #d4af37;    /* הזהב שלכם */
+            --text-light: #e6f1ff;
+            --text-dim: #8892b0;
+            --white: #ffffff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         body {
-            background-color: var(--bg);
-            color: #fff;
             font-family: 'Assistant', sans-serif;
+            background-color: var(--primary);
+            color: var(--text-light);
+            line-height: 1.6;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
         }
 
-        /* רקע אנימטיבי עדין - רשת נקודות */
-        .bg-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: radial-gradient(var(--border) 1px, transparent 1px);
-            background-size: 40px 40px;
-            z-index: -1;
-            opacity: 0.5;
-        }
-
+        /* --- Header & Nav --- */
         header {
-            padding: 40px 8%;
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 25px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: absolute;
-            width: 100%;
-            z-index: 100;
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+
+        header.scrolled {
+            background: rgba(10, 25, 47, 0.95);
+            padding: 15px 8%;
+            box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
         }
 
         .logo {
             font-family: 'Heebo', sans-serif;
-            font-weight: 100;
+            font-weight: 800;
             font-size: 1.8rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: 1px;
         }
 
-        .logo span { font-weight: 900; color: var(--accent); }
+        .logo span { color: var(--gold); }
 
+        nav ul { display: flex; list-style: none; gap: 35px; }
+        nav a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+        nav a:hover { color: var(--accent); }
+
+        /* --- Hero Section --- */
         .hero {
             height: 100vh;
             display: flex;
@@ -62,145 +82,285 @@
             align-items: center;
             text-align: center;
             padding: 0 10%;
+            background: radial-gradient(circle at center, #112240 0%, #0a192f 100%);
         }
 
         .hero h1 {
             font-family: 'Heebo', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
             font-weight: 900;
-            font-size: clamp(3rem, 10vw, 7rem);
-            line-height: 0.9;
-            margin-bottom: 20px;
-            letter-spacing: -2px;
-            background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.4) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+            margin-bottom: 25px;
         }
 
+        /* כותרת מתחלפת */
+        .changing-text { color: var(--accent); display: block; height: 1.2em; }
+
         .hero p {
-            font-weight: 200;
-            font-size: 1.4rem;
-            color: rgba(255,255,255,0.6);
-            max-width: 600px;
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            color: var(--text-dim);
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: 0.3s;
+            text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .grid {
+        .btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* --- Services Section --- */
+        .section { padding: 100px 8%; }
+        .section-header { text-align: center; margin-bottom: 80px; }
+        .section-header h2 { font-family: 'Heebo', sans-serif; font-size: 2.5rem; color: var(--white); }
+        .section-header .line { width: 60px; height: 4px; background: var(--accent); margin: 20px auto; }
+
+        .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1px;
-            background-color: var(--border);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
         }
 
         .card {
-            background-color: var(--bg);
-            padding: 80px 40px;
-            transition: 0.5s;
-            position: relative;
-        }
-
-        .card:hover {
-            background-color: #0a0a0a;
-        }
-
-        .card h3 {
-            font-family: 'Heebo', sans-serif;
-            font-weight: 400;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: var(--gold);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .card p {
-            font-weight: 200;
-            line-height: 1.8;
-            color: rgba(255,255,255,0.5);
-        }
-
-        .footer-cta {
-            padding: 150px 10%;
-            text-align: center;
-        }
-
-        .contact-link {
-            font-family: 'Heebo', sans-serif;
-            font-size: 2rem;
-            color: #fff;
-            text-decoration: none;
-            border-bottom: 1px solid var(--accent);
-            padding-bottom: 10px;
+            background: #112240;
+            padding: 40px;
+            border-radius: 10px;
+            border: 1px solid transparent;
             transition: 0.3s;
         }
 
-        .contact-link:hover {
-            color: var(--accent);
-            border-color: #fff;
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            background: #172a45;
         }
 
+        .card i { font-size: 2.5rem; color: var(--accent); margin-bottom: 20px; }
+        .card h3 { font-family: 'Heebo', sans-serif; font-size: 1.5rem; margin-bottom: 15px; color: var(--gold); }
+        .card p { color: var(--text-dim); font-size: 1rem; }
+
+        /* --- Method / Process Section --- */
+        .method { background-color: #020c1b; }
+        .steps { display: flex; flex-direction: column; gap: 50px; max-width: 900px; margin: 0 auto; }
+        .step { display: flex; gap: 30px; align-items: flex-start; }
+        .step-num { 
+            font-family: 'Heebo', sans-serif; font-size: 3rem; font-weight: 900; 
+            color: rgba(44, 171, 177, 0.2); line-height: 1;
+        }
+        .step-content h4 { font-size: 1.5rem; color: var(--accent); margin-bottom: 10px; }
+
+        /* --- Contact Form --- */
+        .contact-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #112240;
+            padding: 60px;
+            border-radius: 12px;
+        }
+
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; margin-bottom: 10px; font-weight: 600; color: var(--accent); }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: #0a192f;
+            border: 1px solid #233554;
+            color: white;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .form-group input:focus { border-color: var(--gold); }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: var(--gold);
+            color: var(--primary);
+            border: none;
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover { background: #f1c40f; }
+
+        /* --- Footer --- */
         footer {
-            padding: 50px;
+            padding: 50px 8%;
             text-align: center;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            color: rgba(255,255,255,0.2);
-            text-transform: uppercase;
+            border-top: 1px solid #233554;
+            color: var(--text-dim);
+            font-size: 0.9rem;
         }
 
-        /* אנימציה פשוטה לכניסת טקסט */
-        .reveal {
-            animation: reveal 1.5s cubic-bezier(0.77, 0, 0.175, 1);
-        }
-
-        @keyframes reveal {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
+        /* --- Responsiveness --- */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 3.5rem; }
+            nav { display: none; }
+            .hero h1 { font-size: 3rem; }
+            .contact-box { padding: 30px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-overlay"></div>
-
-    <header>
-        <div class="logo">Sync<span>up</span></div>
-        <div style="font-size: 0.8rem; letter-spacing: 2px; color: var(--gold);">EST 2024</div>
+    <header id="header">
+        <a href="#" class="logo">SYNC<span>UP</span></a>
+        <nav>
+            <ul>
+                <li><a href="#services">שירותים</a></li>
+                <li><a href="#method">השיטה</a></li>
+                <li><a href="#contact">צור קשר</a></li>
+            </ul>
+        </nav>
     </header>
 
     <section class="hero">
-        <h1 class="reveal">Sync Up.</h1>
-        <p class="reveal">טכנולוגיה שמניעה עסקים</p>
+        <h1>טכנולוגיה ש<span class="changing-text" id="typewriter">מניעה עסקים</span></h1>
+        <p>מארכיטקטורת מערכות מורכבות ועד אוטומציות חכמות – אנחנו הופכים את החזון הטכנולוגי שלכם לכלי עבודה עוצמתי שמייצר תוצאות.</p>
+        <a href="#contact" class="btn">בואו נדבר טכנולוגיה</a>
     </section>
 
-    <div class="grid">
-        <div class="card">
-            <h3>Custom Build</h3>
-            <p>אנחנו לא מאמינים בפתרונות מדף. כל מערכת נתפרת מאפס לפי הצורך המדויק שלכם – מקוד מלא ועד ארכיטקטורת נתונים מורכבת.</p>
+    <section id="services" class="section">
+        <div class="section-header">
+            <h2>הפתרונות שלנו</h2>
+            <div class="line"></div>
+            <p>אנחנו לא מוכרים מוצרי מדף. אנחנו בונים את הטכנולוגיה שמתאימה בדיוק לכם.</p>
         </div>
-        <div class="card">
-            <h3>Automation</h3>
-            <p>סינכרון מלא בין כל המערכות בעסק. אנחנו הופכים תהליכים ידניים לכלים אוטונומיים שחוסכים זמן ומבטלים טעויות אנוש.</p>
+        
+        <div class="services-grid">
+            <div class="card">
+                <i class="fas fa-layer-group"></i>
+                <h3>פיתוח Custom</h3>
+                <p>ביצוע מלא לכל רעיון טכנולוגי. אנחנו מאפיינים ובונים מערכות מאפס – בקוד מלא או בשילוב כלים מתקדמים.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-sync"></i>
+                <h3>אוטומציה וסינכרון</h3>
+                <p>חיבור חכם בין כל קצוות העסק. אנחנו דואגים שהמערכות שלכם ידברו זו עם זו בסנכרון מושלם.</p>
+            </div>
+            <div class="card">
+                <h3>מערכות IVR ובוטים</h3>
+                <p>ממשקי תקשורת חכמים, ניתוב שיחות מתקדם ובוטים בוואטסאפ שחוסכים זמן ומייעלים את הקשר עם הלקוח.</p>
+                <i class="fas fa-headset" style="margin-top: 20px;"></i>
+            </div>
+            <div class="card">
+                <i class="fas fa-chart-line"></i>
+                <h3>הטמעת CRM ודאטה</h3>
+                <p>ארגון המידע העסקי שלכם במערכות המובילות בשוק, כולל דשבורדים ותובנות לניהול חכם יותר.</p>
+            </div>
         </div>
-        <div class="card">
-            <h3>Intelligence</h3>
-            <p>בוטים חכמים, מערכות IVR מתקדמות וניהול CRM. אנחנו מעניקים לעסק שלכם את חזית הטכנולוגיה כדי לייצר יתרון תחרותי.</p>
-        </div>
-    </div>
+    </section>
 
-    <section class="footer-cta">
-        <h2 style="font-weight: 200; margin-bottom: 50px; opacity: 0.6;">יש לכם רעיון? בואו נסנכרן אותו.</h2>
-        <a href="mailto:your@email.com" class="contact-link">Get in touch</a>
+    <section id="method" class="section method">
+        <div class="section-header">
+            <h2>איך זה עובד?</h2>
+            <div class="line"></div>
+        </div>
+
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">01</div>
+                <div class="step-content">
+                    <h4>שיחת אפיון וחזון</h4>
+                    <p>אנחנו צוללים לעומק העסק שלכם כדי להבין את האתגרים האמיתיים ואת הפוטנציאל הטכנולוגי.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">02</div>
+                <div class="step-content">
+                    <h4>תכנון וארכיטקטורה</h4>
+                    <p>בונים את מפת הדרכים הטכנולוגית – בחירת הכלים הנכונים, תכנון בסיסי הנתונים והלוגיקה העסקית.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">03</div>
+                <div class="step-content">
+                    <h4>פיתוח והטמעה</h4>
+                    <p>אנחנו מקימים את המערכת, מבצעים בדיקות קפדניות ומלווים אתכם עד שהכל דופק כמו שעון.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="section-header">
+            <h2>בואו נצא לדרך</h2>
+            <p>האתגר הטכנולוגי הבא שלכם מחכה לביצוע שלנו.</p>
+        </div>
+
+        <div class="contact-box">
+            <form id="contactForm">
+                <div class="form-group">
+                    <label>שם מלא</label>
+                    <input type="text" placeholder="ישראל ישראלי" required>
+                </div>
+                <div class="form-group">
+                    <label>אימייל</label>
+                    <input type="email" placeholder="hello@syncup.co.il" required>
+                </div>
+                <div class="form-group">
+                    <label>ספרו לנו על הרעיון / אתגר</label>
+                    <textarea rows="5" placeholder="מה תרצו שנבנה עבורכם?"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">שליחת פנייה</button>
+            </form>
+        </div>
     </section>
 
     <footer>
-        &copy; Sync Up Technology Solutions // Innovation Through Code
+        <p>&copy; 2024 Sync Up Technology Solutions // Innovation Through Performance</p>
+        <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.5;">מאפיון ועד ביצוע - ללא בירוקרטיה</p>
     </footer>
 
+    <script>
+        // שינוי צבע הדר בגלילה
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // כותרת מתחלפת
+        const texts = ["מניעה עסקים", "מייצרת תוצאות", "הופכת רעיונות למציאות"];
+        let count = 0;
+        let index = 0;
+        let currentText = "";
+        let letter = "";
+
+        (function type() {
+            if (count === texts.length) {
+                count = 0;
+            }
+            currentText = texts[count];
+            letter = currentText.slice(0, ++index);
+
+            document.getElementById('typewriter').textContent = letter;
+            if (letter.length === currentText.length) {
+                count++;
+                index = 0;
+                setTimeout(type, 2000); // הפסקה בין משפטים
+            } else {
+                setTimeout(type, 100); // מהירות הקלדה
+            }
+        }());
+    </script>
 </body>
 </html>
